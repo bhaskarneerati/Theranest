@@ -1,68 +1,113 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
         align-items: center;
         height: 100vh;
-        margin: 0;
+      margin: 0;
         background-color: #f4f4f4;
-      }
+    }
 
-      .form-container {
-        background: #fff;
+    .form-container {
+      background: #fff;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         width: 300px;
-      }
+    }
 
-      .form-container label {
+    .form-container label {
         /* font-weight: bold; */
-        display: block;
+      display: block;
         margin-bottom: 5px;
       }
 
       .form-container label.required:after {
         content: " *";
         color: red;
-      }
+    }
 
-      .form-container input,
+    .form-container input,
       .form-container select {
-        width: 100%;
+      width: 100%;
         padding: 8px;
         margin-bottom: 15px;
-        border: 1px solid #ccc;
+      border: 1px solid #ccc;
         border-radius: 4px;
-        box-sizing: border-box;
-      }
+      box-sizing: border-box;
+    }
 
-      .form-container button {
-        background-color: #4285f4;
-        color: #fff;
-        border: none;
+    .form-container textarea {
+      resize: vertical;
+    }
+
+    .dropdown {
+      position: relative;
+      user-select: none;
+      margin-bottom: 15px;
+    }
+
+    .dropdown-toggle {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      white-space: normal;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 100%;
+      max-height: 160px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      background: #fff;
+      z-index: 100;
+      border-radius: 6px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .dropdown-menu div {
+      padding: 10px;
+      white-space: normal;
+      word-wrap: break-word;
+      cursor: pointer;
+    }
+
+    .dropdown-menu div:hover {
+      background-color: #f0f0f0;
+    }
+
+    .form-container button {
+      background-color: #4285f4;
+      color: #fff;
+      border: none;
         padding: 10px;
-        width: 100%;
+      width: 100%;
         border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-      }
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-      .form-container button:hover {
+    .form-container button:hover {
         background-color: #357ae8;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="form-container">
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
       <form id="form">
         <label for="name" class="required">Submitter Name</label>
         <input type="text" id="name" name="name" required />
@@ -166,7 +211,7 @@
         <button type="submit">Submit</button>
       </form>
     </div>
-    <script>
+  <script>
       const form = document.getElementById("form");
       const formFields = form.querySelectorAll("input, select, textarea");
       const submitButton = document.querySelector("button[type='submit']");
@@ -206,22 +251,22 @@
         .addEventListener("submit", function (event) {
           event.preventDefault(); // Prevents form submission for demonstration
           const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
-          const phone = document.getElementById("phone").value;
-          const organization = document.getElementById("organization").value;
-          const product = document.getElementById("product").value;
-          const business = document.getElementById("business").value;
-          const subject = document.getElementById("subject").value;
-          const description = document.getElementById("description").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const orgName = document.getElementById("org-name").value;
+      const product = document.getElementById("product").value;
+      const businessImpact = toggle.textContent;
+      const subject = document.getElementById("subject").value;
+      const description = document.getElementById("description").value;
 
           const data = {
             name,
-            phone,
+        phone,
             email,
             organization,
-            product,
+        product,
             business,
-            subject,
+        subject,
             description,
           };
           window.parent.postMessage(
@@ -244,6 +289,6 @@
           submitButton.disabled = true;
           // alert(`${name} ${email} ${phone} ${organization} ${product} ${business} ${subject} ${description}`);
         });
-    </script>
-  </body>
+  </script>
+</body>
 </html>
