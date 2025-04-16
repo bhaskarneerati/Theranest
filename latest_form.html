@@ -1,278 +1,250 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Custom Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
 
-        .form-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: 0 auto;
-        }
+    .form-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
 
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
+    .form-container label {
+      /* font-weight: bold; */
+      display: block;
+      margin-bottom: 5px;
+    }
 
-        .required::after {
-            content: " *";
-            color: red;
-        }
+    .form-container label.required:after {
+      content: " *";
+      color: red;
+    }
 
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
+    .form-container input,
+    .form-container select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
 
-        textarea {
-            height: 80px;
-        }
+    .form-container button {
+      background-color: #4285f4;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-        .custom-select {
-            position: relative;
-            user-select: none;
-            margin-bottom: 15px;
-        }
-
-        .custom-select .selected {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-
-        .custom-select .options {
-            position: absolute;
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-            display: none;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        .custom-select .option {
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        .custom-select .option:hover {
-            background-color: #f0f0f0;
-        }
-
-        .custom-select.open .options {
-            display: block;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 15px;
-        }
-    </style>
+    .form-container button:hover {
+      background-color: #357ae8;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="form-container">
+    <form id="form">
+      <label for="name" class="required">Submitter Name</label>
+      <input type="text" id="name" name="name" required />
 
-    <h2>Custom Form</h2>
-    <div class="form-container">
-        <form id="form">
-            <label for="first-name" class="required">First Name</label>
-            <input type="text" id="first-name" name="first-name" required>
+      <label for="email" class="required">Submitter Email</label>
+      <input type="email" id="email" name="email" required />
 
-            <label for="last-name" class="required">Last Name</label>
-            <input type="text" id="last-name" name="last-name" required>
+      <label for="phone">Submitter Phone</label>
+      <input type="tel" id="phone" name="phone" />
 
-            <label for="email" class="required">Email</label>
-            <input type="text" id="email" name="email" required>
+      <label for="organization" class="required">Organization Name</label>
+      <input type="text" id="organization" name="organization" required />
 
-            <label for="subject" class="required">Subject</label>
-            <input type="text" id="subject" name="subject" required>
+      <label for="product" class="required">Product</label>
+      <select id="product" name="product" required>
+        <option label="Ensora Mental Health | Theranest" value="TheraNest Professional" selected>
+          Ensora Mental Health | Theranest
+        </option>
+        <option label="Ensora Rehab Therapy | Fusion" value="Ensora Rehab Therapy/Fusion">
+          Ensora Rehab Therapy | Fusion
+        </option>
+        <option label="Ensora Rehab Therapy | Fusion Enterprise" value="Ensora Rehab Therapy/Fusion Enterprise">
+          Ensora Rehab Therapy | Fusion Enterprise
+        </option>
+        <option label="Ensora ABA Therapy | WebABA Pro & Group" value="Ensora ABA Therapy/WebABA Pro & Group">
+          Ensora ABA Therapy | WebABA Pro & Group
+        </option>
+        <option label="Ensora Clearinghouse | Apex" value="Ensora Clearinghouse/Apex">
+          Ensora Clearinghouse | Apex
+        </option>
+        <option label="Ensora Data Collection | Catalyst" value="Ensora Data Collection/Catalyst">
+          Ensora Data Collection | Catalyst
+        </option>
+        <option label="Ensora Centralized Billing | Logik" value="Ensora Centralized Billing/Logik">
+          Ensora Centralized Billing | Logik
+        </option>
+        <option label="Ensora eRx | NewCrop" value="Ensora eRx/NewCrop">
+          Ensora eRx | NewCrop
+        </option>
+        <option label="ShareNote by Ensora Health" value="ShareNote by Ensora Health">
+          ShareNote by Ensora Health
+        </option>
+        <option label="TenEleven by Ensora Health" value="TenEleven by Ensora Health">
+          TenEleven by Ensora Health
+        </option>
+        <option label="EchoVantage by Ensora Health" value="EchoVantage by Ensora Health">
+          EchoVantage by Ensora Health
+        </option>
+        <option label="Procentive by Ensora Health" value="Procentive by Ensora Health">
+          Procentive by Ensora Health
+        </option>
+        <option label="MyClients Plus 2.0 by Ensora Health" value="MyClients Plus 2.0 by Ensora Health">
+          MyClients Plus 2.0 by Ensora Health
+        </option>
+        <option label="MyClients Plus 3.0 by Ensora Health" value="MyClients Plus 3.0 by Ensora Health">
+          MyClients Plus 3.0 by Ensora Health
+        </option>
+        <option label="CodeMetro by Ensora Health" value="CodeMetro by Ensora Health">
+          CodeMetro by Ensora Health
+        </option>
+        <option label="Thera-LINK" value="Thera-LINK">Thera-LINK</option>
+        <option label="KASA" value="KASA">KASA</option>
+        <option label="WebABA Legacy" value="WebABA Legacy">WebABA Legacy</option>
+        <option label="AccuPoint Legacy" value="AccuPoint Legacy">AccuPoint Legacy</option>
+        <option label="RevMan" value="RevMan">RevMan</option>
+        <option label="ShareCare" value="ShareCare">ShareCare</option>
+        <option label="Clinician's Desktop" value="Clinician's Desktop">
+          Clinician's Desktop
+        </option>
+        <option label="Insyst" value="Insyst">Insyst</option>
+      </select>
 
-            <label for="product" class="required">Product</label>
-            <div class="custom-select" id="product-select" data-name="product">
-                <div class="selected">option 1</div>
-                <div class="options">
-                    <div class="option">option 1</div>
-                    <div class="option">option 2</div>
-                    <div class="option">option 3</div>
-                </div>
-            </div>
-            <input type="hidden" name="product" id="product" value="option 1" required />
+      <label for="business" class="required">Business Impact</label>
+      <select id="business" name="business" required>
+        <option label="I have a question about my product" value="I have a question about my product" selected>
+          I have a question about my product
+        </option>
+        <option label="There is an item causing some minor annoyances (everyone can still work)"
+          value="There is an item causing some minor annoyances (everyone can still work)">
+          There is an item causing some minor annoyances (everyone can still
+          work)
+        </option>
+        <option label="Part of the system is not functioning (some people cannot work)"
+          value="Part of the system is not functioning (some people cannot work)">
+          Part of the system is not functioning (some people cannot work)
+        </option>
+        <option label="Entire system is down (no one can work)" value="Entire system is down (no one can work)">
+          Entire system is down (no one can work)
+        </option>
+      </select>
 
-            <label for="business" class="required">Business Impact</label>
-            <div class="custom-select" id="business-select" data-name="business">
-                <div class="selected">I have a question about my product</div>
-                <div class="options">
-                    <div class="option">I have a question about my product</div>
-                    <div class="option">There is an item causing some minor annoyances (everyone can still work)</div>
-                    <div class="option">Part of the system is not functioning (some people cannot work)</div>
-                    <div class="option">Entire system is down (no one can work)</div>
-                </div>
-            </div>
-            <input type="hidden" name="business" id="business" value="I have a question about my product" required />
+      <label for="subject" class="required">Subject</label>
+      <input type="text" id="subject" name="subject" required />
 
-            <label for="description" class="required">Description</label>
-            <textarea id="description" name="description" required></textarea>
+      <label for="description" class="required">Brief Description</label>
+      <input type="text" id="description" name="description" required />
 
-            <button type="submit" id="submit-button">Submit</button>
-        </form>
-    </div>
-    <script>
-        // Dropdown functionality
-        function initCustomSelect(id) {
-            const container = document.getElementById(id);
-            const selected = container.querySelector('.selected');
-            const options = container.querySelector('.options');
-            const hiddenInput = document.getElementById(container.getAttribute('data-name'));
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+    const form = document.getElementById("form");
+    const formFields = form.querySelectorAll("input, select, textarea");
+    const submitButton = document.querySelector("button[type='submit']");
 
-            selected.addEventListener('click', () => {
-                closeAllCustomSelects();
-                container.classList.toggle('open');
-            });
+    const url = new URL(window.location.href);
 
-            options.querySelectorAll('.option').forEach(option => {
-                option.addEventListener('click', () => {
-                    selected.textContent = option.textContent;
-                    hiddenInput.value = option.textContent;
-                    container.classList.remove('open');
-                });
-            });
-        }
+    const userName = url.searchParams.get("name");
+    const userEmail = url.searchParams.get("email");
+    const userPhone = url.searchParams.get("phone");
+    const product = url.searchParams.get("product");
+    // console.log(`${userEmail} ${userEmail} ${userPhone}`)
 
-        function closeAllCustomSelects() {
-            document.querySelectorAll('.custom-select').forEach(select => {
-                select.classList.remove('open');
-            });
-        }
+    const nameField = document.getElementById("name");
+    const emailField = document.getElementById("email");
+    const phoneField = document.getElementById("phone");
+    const productField = document.getElementById("product");
 
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.custom-select')) {
-                closeAllCustomSelects();
-            }
-        });
+    if (userName) {
+      nameField.value = userName;
+      nameField.disabled = true;
+    }
+    if (userEmail) {
+      emailField.value = userEmail;
+      emailField.disabled = true;
+    }
+    if (userPhone) {
+      phoneField.value = userPhone;
+      phoneField.disabled = true;
+    }
+    if (product) {
+      productField.value = product;
+      productField.disabled = true;
+    }
 
-        initCustomSelect('product-select');
-        initCustomSelect('business-select');
+    document
+      .getElementById("form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevents form submission for demonstration
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const organization = document.getElementById("organization").value;
+        const product = document.getElementById("product").value;
+        const business = document.getElementById("business").value;
+        const subject = document.getElementById("subject").value;
+        const description = document.getElementById("description").value;
 
-        // Autofill based on query params
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        function setFieldValue(id, value, isCustomDropdown = false) {
-            const el = document.getElementById(id);
-            if (!el) return;
-
-            if (isCustomDropdown) {
-                const container = document.getElementById(id + '-select');
-                const selected = container.querySelector('.selected');
-                const options = container.querySelectorAll('.option');
-                selected.textContent = value;
-                el.value = value;
-                options.forEach(option => {
-                    option.style.display = option.textContent === value ? 'block' : 'none';
-                });
-                container.classList.add('disabled');
-                selected.style.background = '#f0f0f0';
-                selected.style.pointerEvents = 'none';
-            } else {
-                el.value = value;
-                el.disabled = true;
-            }
-        }
-
-        window.onload = () => {
-            const urlFields = ['first-name', 'last-name', 'email', 'subject', 'description'];
-            urlFields.forEach(field => {
-                const val = getQueryParam(field);
-                if (val) setFieldValue(field, val);
-            });
-
-            const productVal = getQueryParam('product');
-            if (productVal) setFieldValue('product', productVal, true);
-
-            const businessVal = getQueryParam('business');
-            if (businessVal) setFieldValue('business', businessVal, true);
+        const data = {
+          name,
+          phone,
+          email,
+          organization,
+          product,
+          business,
+          subject,
+          description,
         };
+        window.parent.postMessage(
+          JSON.stringify({
+            event_code: "ym-client-event",
+            data: JSON.stringify({
+              event: {
+                code: "userdetails",
+                data,
+              },
+            }),
+          }),
+          "*"
+        );
+        console.log("event submitted", data);
 
-        // Form submission
-        document.getElementById("form").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const firstName = document.getElementById("first-name").value;
-            const lastName = document.getElementById("last-name").value;
-            const email = document.getElementById("email").value;
-            const product = document.getElementById("product").value;
-            const business = document.getElementById("business").value;
-            const subject = document.getElementById("subject").value;
-            const description = document.getElementById("description").value;
-
-            window.parent.postMessage(
-                JSON.stringify({
-                    event_code: "ym-client-event",
-                    data: JSON.stringify({
-                        event: {
-                            code: "userdetails",
-                            data: {
-                                firstName,
-                                lastName,
-                                email,
-                                product,
-                                business,
-                                subject,
-                                description,
-                            },
-                        },
-                    }),
-                }),
-                "*"
-            );
-
-            console.log("event submitted");
-            console.log(JSON.stringify({
-                event: {
-                    code: "userdetails",
-                    data: {
-                        firstName,
-                        lastName,
-                        email,
-                        product,
-                        business,
-                        subject,
-                        description,
-                    },
-                },
-            }));
-
-            const formFields = document.querySelectorAll("input, textarea");
-            const submitButton = document.getElementById("submit-button");
-
-            formFields.forEach((field) => {
-                field.disabled = true;
-            });
-            submitButton.disabled = true;
+        formFields.forEach((field) => {
+          field.disabled = true;
         });
-    </script>
-
+        submitButton.disabled = true;
+        // alert(`${name} ${email} ${phone} ${organization} ${product} ${business} ${subject} ${description}`);
+      });
+  </script>
 </body>
 
 </html>
