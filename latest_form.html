@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Custom Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        .custom-select {
+            position: relative;
+            user-select: none;
+            margin-bottom: 15px;
+        }
+
+        .custom-select .selected {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .custom-select .options {
+            position: absolute;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .custom-select .option {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .custom-select .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .custom-select.open .options {
+            display: block;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Custom Form</h2>
+    <div class="form-container">
+        <form id="form">
+            <label for="first-name" class="required">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+
+            <label for="last-name" class="required">Last Name</label>
+            <input type="text" id="last-name" name="last-name" required>
+
+            <label for="email" class="required">Email</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="subject" class="required">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="product" class="required">Product</label>
+            <div class="custom-select" id="product-select" data-name="product">
+                <div class="selected">option 1</div>
+                <div class="options">
+                    <div class="option">option 1</div>
+                    <div class="option">option 2</div>
+                    <div class="option">option 3</div>
+                </div>
+            </div>
+            <input type="hidden" name="product" id="product" value="option 1" required />
+
+            <label for="business" class="required">Business Impact</label>
+            <div class="custom-select" id="business-select" data-name="business">
+                <div class="selected">I have a question about my product</div>
+                <div class="options">
+                    <div class="option">I have a question about my product</div>
+                    <div class="option">There is an item causing some minor annoyances (everyone can still work)</div>
+                    <div class="option">Part of the system is not functioning (some people cannot work)</div>
+                    <div class="option">Entire system is down (no one can work)</div>
+                </div>
+            </div>
+            <input type="hidden" name="business" id="business" value="I have a question about my product" required />
+
+            <label for="description" class="required">Description</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <button type="submit" id="submit-button">Submit</button>
+        </form>
+    </div>
+    <script>
+        // Dropdown functionality
+        function initCustomSelect(id) {
+            const container = document.getElementById(id);
+            const selected = container.querySelector('.selected');
+            const options = container.querySelector('.options');
+            const hiddenInput = document.getElementById(container.getAttribute('data-name'));
+
+            selected.addEventListener('click', () => {
+                closeAllCustomSelects();
+                container.classList.toggle('open');
+            });
+
+            options.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', () => {
+                    selected.textContent = option.textContent;
+                    hiddenInput.value = option.textContent;
+                    container.classList.remove('open');
+                });
+            });
+        }
+
+        function closeAllCustomSelects() {
+            document.querySelectorAll('.custom-select').forEach(select => {
+                select.classList.remove('open');
+            });
+        }
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.custom-select')) {
+                closeAllCustomSelects();
+            }
+        });
+
+        initCustomSelect('product-select');
+        initCustomSelect('business-select');
+
+        // Autofill based on query params
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function setFieldValue(id, value, isCustomDropdown = false) {
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            if (isCustomDropdown) {
+                const container = document.getElementById(id + '-select');
+                const selected = container.querySelector('.selected');
+                const options = container.querySelectorAll('.option');
+                selected.textContent = value;
+                el.value = value;
+                options.forEach(option => {
+                    option.style.display = option.textContent === value ? 'block' : 'none';
+                });
+                container.classList.add('disabled');
+                selected.style.background = '#f0f0f0';
+                selected.style.pointerEvents = 'none';
+            } else {
+                el.value = value;
+                el.disabled = true;
+            }
+        }
+
+        window.onload = () => {
+            const urlFields = ['first-name', 'last-name', 'email', 'subject', 'description'];
+            urlFields.forEach(field => {
+                const val = getQueryParam(field);
+                if (val) setFieldValue(field, val);
+            });
+
+            const productVal = getQueryParam('product');
+            if (productVal) setFieldValue('product', productVal, true);
+
+            const businessVal = getQueryParam('business');
+            if (businessVal) setFieldValue('business', businessVal, true);
+        };
+
+        // Form submission
+        document.getElementById("form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const firstName = document.getElementById("first-name").value;
+            const lastName = document.getElementById("last-name").value;
+            const email = document.getElementById("email").value;
+            const product = document.getElementById("product").value;
+            const business = document.getElementById("business").value;
+            const subject = document.getElementById("subject").value;
+            const description = document.getElementById("description").value;
+
+            window.parent.postMessage(
+                JSON.stringify({
+                    event_code: "ym-client-event",
+                    data: JSON.stringify({
+                        event: {
+                            code: "userdetails",
+                            data: {
+                                firstName,
+                                lastName,
+                                email,
+                                product,
+                                business,
+                                subject,
+                                description,
+                            },
+                        },
+                    }),
+                }),
+                "*"
+            );
+
+            console.log("event submitted");
+            console.log(JSON.stringify({
+                event: {
+                    code: "userdetails",
+                    data: {
+                        firstName,
+                        lastName,
+                        email,
+                        product,
+                        business,
+                        subject,
+                        description,
+                    },
+                },
+            }));
+
+            const formFields = document.querySelectorAll("input, textarea");
+            const submitButton = document.getElementById("submit-button");
+
+            formFields.forEach((field) => {
+                field.disabled = true;
+            });
+            submitButton.disabled = true;
+        });
+    </script>
+
+</body>
+
+</html>
