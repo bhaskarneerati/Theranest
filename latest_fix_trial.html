@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dropdown Fix</title>
+  <style>
+    /* Chatbot container styling */
+    .chatbot-container {
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+      /* ✅ Fix: Allow dropdowns to overflow outside this box if needed */
+      overflow: visible;
+      position: relative; /* ✅ Needed for proper dropdown alignment */
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #4a7efc;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3b6be0;
+    }
+
+    /* Optional: Improve dropdown appearance */
+    select:focus {
+      outline: 2px solid #4a7efc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Wrapper for chatbot/form -->
+  <div class="chatbot-container">
+    <form>
+      <label for="impact">Business Impact <span style="color: red;">*</span></label>
+      <select id="impact" name="impact" required>
+        <option value="">Select an impact level</option>
+        <option>I have a question about my product</option>
+        <option>There is an item causing some minor annoyances (everyone can still work)</option>
+        <option>Part of the system is not functioning (some people cannot work)</option>
+        <option>Entire system is down (no one can work)</option>
+      </select>
+
+      <label for="description">Brief Description <span style="color: red;">*</span></label>
+      <textarea id="description" name="description" required rows="4"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+</body>
+</html>

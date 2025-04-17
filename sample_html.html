@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat-style Floating Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        /* Chat Icon Button */
+        #chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            font-size: 30px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        /* Floating Iframe Chat Widget */
+        #chat-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            height: 500px;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 9999;
+        }
+
+        /* Close Button inside Iframe box */
+        #close-button {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background-color: #ff5e5e;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 10001;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to the Long Scrollable Page</h1>
+    <p>This page is filled with meaningful content just to let you scroll up and down. Perfect for testing scroll
+        behavior, layout responsiveness, or just reading for fun!</p>
+
+    <h2>Introduction</h2>
+    <p>The purpose of this page is simple — to create a long vertical stretch so you can scroll. We’ll fill it with
+        various text sections, paragraphs, and headings so it mimics a real webpage layout.</p>
+
+    <h2>Chapter 1: The Beginning</h2>
+    <p>Once upon a time in a land far away, there was a web developer who wanted to create a scrollable page. Not just a
+        page with a little content, but a page with substance. The mission was clear — make it scroll, make it real.</p>
+
+    <h2>Chapter 2: The Middle</h2>
+    <p>Content was added. Paragraph after paragraph. Section after section. And as the lines grew longer, the page
+        stretched taller. The developer tested the scroll bar, up and down, again and again. Success was near.</p>
+
+    <h2>Chapter 3: The Mystery</h2>
+    <p>Hidden deep within the page, beyond the fold, lay content unseen by many. Only the brave scrollers reached the
+        bottom, where the final secret message was stored. But what was it? You'll have to keep scrolling to find out.
+    </p>
+
+    <h2>Random Thoughts</h2>
+    <p>Web development isn’t always about flashy animations or sophisticated frameworks. Sometimes it’s just about
+        structure, layout, and flow. A good scroll is therapeutic. A well-spaced paragraph is art.</p>
+
+    <h2>More Filler Content</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel facilisis lorem. Nulla facilisi. Integer
+        tristique dui ut turpis feugiat, et accumsan ligula porta. Vestibulum ullamcorper lorem nec lorem lobortis, at
+        fermentum purus bibendum.</p>
+    <p>Aliquam sagittis lectus vel nulla consequat, in congue nulla varius. Etiam lacinia vehicula dolor, nec dignissim
+        nunc malesuada id. Suspendisse potenti. Pellentesque a nunc vitae metus pulvinar rutrum.</p>
+    <p>Praesent finibus sem vel ex blandit tincidunt. Cras malesuada odio velit, ut dapibus purus feugiat non. Integer
+        porttitor fermentum ante, at lobortis ex iaculis sed.</p>
+
+    <h2>Even More Sections</h2>
+    <p>Section after section, the page grows longer. You’re doing great — scrolling like a pro! Keep going, more text
+        awaits you.</p>
+    <p>Life is a bit like scrolling. Sometimes you go up, sometimes down, but the journey is what counts. Don’t forget
+        to enjoy the paragraphs on the way.</p>
+    <p>Writing content for testing purposes might seem silly, but it’s actually quite relaxing. You get to be creative,
+        even if no one is going to read all of it.</p>
+
+    <h2>The Grand Finale</h2>
+    <p>Congratulations, you made it to the bottom of the page! Whether you were testing your mouse wheel, scroll bar,
+        touchpad, or just bored — you’re a true explorer. Thanks for scrolling!</p>
+
+    <h2>Footer Note</h2>
+    <p>This is the end… or is it? The web is infinite. You can always add more. But for now, take a breath and scroll
+        back up.</p>
+
+    <h1>Welcome to the Long Scrollable Page</h1>
+    <p>This page is filled with meaningful content just to let you scroll up and down. Perfect for testing scroll
+        behavior, layout responsiveness, or just reading for fun!</p>
+
+    <h2>Introduction</h2>
+    <p>The purpose of this page is simple — to create a long vertical stretch so you can scroll. We’ll fill it with
+        various text sections, paragraphs, and headings so it mimics a real webpage layout.</p>
+
+    <h2>Chapter 1: The Beginning</h2>
+    <p>Once upon a time in a land far away, there was a web developer who wanted to create a scrollable page. Not just a
+        page with a little content, but a page with substance. The mission was clear — make it scroll, make it real.</p>
+
+    <h2>Chapter 2: The Middle</h2>
+    <p>Content was added. Paragraph after paragraph. Section after section. And as the lines grew longer, the page
+        stretched taller. The developer tested the scroll bar, up and down, again and again. Success was near.</p>
+
+    <h2>Chapter 3: The Mystery</h2>
+    <p>Hidden deep within the page, beyond the fold, lay content unseen by many. Only the brave scrollers reached the
+        bottom, where the final secret message was stored. But what was it? You'll have to keep scrolling to find out.
+    </p>
+
+    <h2>Random Thoughts</h2>
+    <p>Web development isn’t always about flashy animations or sophisticated frameworks. Sometimes it’s just about
+        structure, layout, and flow. A good scroll is therapeutic. A well-spaced paragraph is art.</p>
+
+    <h2>More Filler Content</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel facilisis lorem. Nulla facilisi. Integer
+        tristique dui ut turpis feugiat, et accumsan ligula porta. Vestibulum ullamcorper lorem nec lorem lobortis, at
+        fermentum purus bibendum.</p>
+    <p>Aliquam sagittis lectus vel nulla consequat, in congue nulla varius. Etiam lacinia vehicula dolor, nec dignissim
+        nunc malesuada id. Suspendisse potenti. Pellentesque a nunc vitae metus pulvinar rutrum.</p>
+    <p>Praesent finibus sem vel ex blandit tincidunt. Cras malesuada odio velit, ut dapibus purus feugiat non. Integer
+        porttitor fermentum ante, at lobortis ex iaculis sed.</p>
+
+    <h2>Even More Sections</h2>
+    <p>Section after section, the page grows longer. You’re doing great — scrolling like a pro! Keep going, more text
+        awaits you.</p>
+    <p>Life is a bit like scrolling. Sometimes you go up, sometimes down, but the journey is what counts. Don’t forget
+        to enjoy the paragraphs on the way.</p>
+    <p>Writing content for testing purposes might seem silly, but it’s actually quite relaxing. You get to be creative,
+        even if no one is going to read all of it.</p>
+
+    <h2>The Grand Finale</h2>
+    <p>Congratulations, you made it to the bottom of the page! Whether you were testing your mouse wheel, scroll bar,
+        touchpad, or just bored — you’re a true explorer. Thanks for scrolling!</p>
+
+    <h2>Footer Note</h2>
+    <p>This is the end… or is it? The web is infinite. You can always add more. But for now, take a breath and scroll
+        back up.</p>
+
+    <div style="height: 2000px;">
+        <p>Lots of content below... Keep scrolling down.</p>
+    </div>
+
+    <!-- Chat Launcher Button -->
+    <button id="chat-button">💬</button>
+
+    <!-- Floating Iframe Widget -->
+    <div id="chat-widget-container">
+        <button id="close-button">×</button>
+        <iframe id="chat-widget" src="https://bhaskarneerati.github.io/Theranest/online_vh.html"
+            title="Floating Chat"
+            ></iframe>
+    </div>
+
+    <script>
+        const chatButton = document.getElementById("chat-button");
+        const chatWidget = document.getElementById("chat-widget");
+        const closeButton = document.getElementById("close-button");
+        const widgetContainer = document.getElementById("chat-widget-container");
+
+        chatButton.addEventListener("click", () => {
+            chatWidget.style.display = "block";
+            widgetContainer.style.display = "block";
+        });
+
+        closeButton.addEventListener("click", () => {
+            chatWidget.style.display = "none";
+            widgetContainer.style.display = "none";
+        });
+    </script>
+</body>
+
+</html>
