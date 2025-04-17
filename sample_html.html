@@ -3,61 +3,69 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Chat-style Floating Page</title>
+    <title>Chatbot Style Floating Page</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        /* Chat Icon Button */
-        #chat-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #007bff;
-            color: white;
-            font-size: 30px;
-            border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            z-index: 10000;
-        }
-
-        /* Floating Iframe Chat Widget */
-        #chat-widget {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 360px;
-            height: 500px;
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            display: none;
-            z-index: 9999;
-        }
-
-        /* Close Button inside Iframe box */
-        #close-button {
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            background-color: #ff5e5e;
-            border: none;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 10001;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+  
+      /* Chat Icon Button */
+      #chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: white;
+        font-size: 28px;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
+        z-index: 10000;
+      }
+  
+      /* Container for iframe and close button */
+      #chat-widget-container {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 360px;
+        height: 500px;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        background-color: white;
+        overflow: hidden;
+      }
+  
+      /* Close Button inside the widget */
+      #close-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: #ff5e5e;
+        border: none;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 10001;
+      }
+  
+      /* Iframe fills the container minus space for close button */
+      #chat-widget {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
     </style>
-</head>
+  </head>
 
 <body>
     <h1>Welcome to the Long Scrollable Page</h1>
@@ -167,29 +175,29 @@
     <!-- Chat Launcher Button -->
     <button id="chat-button">💬</button>
 
-    <!-- Floating Iframe Widget -->
+    <!-- Floating Widget Container -->
     <div id="chat-widget-container">
-        <button id="close-button">×</button>
-        <iframe id="chat-widget" src="https://bhaskarneerati.github.io/Theranest/online_vh.html"
-            title="Floating Chat"
-            ></iframe>
+      <button id="close-button">×</button>
+      <iframe
+        id="chat-widget"
+        src="https://bhaskarneerati.github.io/Theranest/online_vh.html"
+        title="Floating Chat Frame"
+        scrolling="yes"
+      ></iframe>
     </div>
-
+  
     <script>
-        const chatButton = document.getElementById("chat-button");
-        const chatWidget = document.getElementById("chat-widget");
-        const closeButton = document.getElementById("close-button");
-        const widgetContainer = document.getElementById("chat-widget-container");
-
-        chatButton.addEventListener("click", () => {
-            chatWidget.style.display = "block";
-            widgetContainer.style.display = "block";
-        });
-
-        closeButton.addEventListener("click", () => {
-            chatWidget.style.display = "none";
-            widgetContainer.style.display = "none";
-        });
+      const chatButton = document.getElementById("chat-button");
+      const chatWidgetContainer = document.getElementById("chat-widget-container");
+      const closeButton = document.getElementById("close-button");
+  
+      chatButton.addEventListener("click", () => {
+        chatWidgetContainer.style.display = "block";
+      });
+  
+      closeButton.addEventListener("click", () => {
+        chatWidgetContainer.style.display = "none";
+      });
     </script>
 </body>
 
