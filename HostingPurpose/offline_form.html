@@ -98,6 +98,7 @@
       display: none;
       max-height: 140px;
       overflow-y: auto;
+      font-size: 15px;
     }
 
     .dropdown-options div {
@@ -114,16 +115,16 @@
 <body>
   <div class="form-container">
     <form id="form">
-      <label for="name" class="required">Submitter Name</label>
+      <label class="required">Submitter Name</label>
       <input type="text" id="name" name="name" required />
 
-      <label for="email" class="required">Submitter Email</label>
+      <label class="required">Submitter Email</label>
       <input type="email" id="email" name="email" required />
 
-      <label for="phone">Submitter Phone</label>
+      <label>Submitter Phone</label>
       <input type="tel" id="phone" name="phone" />
 
-      <label for="organization" class="required">Organization Name</label>
+      <label class="required">Organization Name</label>
       <input type="text" id="organization" name="organization" required />
 
       <label class="required">Product</label>
@@ -157,7 +158,7 @@
         <input type="hidden" name="product" id="product-input" value="TheraNest Professional" />
       </div>
 
-      <label for="business" class="required">Business Impact</label>
+      <label class="required">Business Impact</label>
       <div class="dropdown" id="business-dropdown">
         <div class="dropdown-selected" id="selected-business">I have a question about my product</div>
         <div class="dropdown-options" id="business-options">
@@ -175,10 +176,10 @@
         <input type="hidden" name="business" id="business-input" value="I have a question about my product" />
       </div>
 
-      <label for="subject" class="required">Subject</label>
+      <label class="required">Subject</label>
       <input type="text" id="subject" name="subject" required />
 
-      <label for="description" class="required">Brief Description</label>
+      <label class="required">Brief Description</label>
       <input type="text" id="description" name="description" required />
 
       <button type="submit">Start Chatting</button>
@@ -225,8 +226,7 @@
       const options = document.getElementById(optionsId);
       const hiddenInput = document.getElementById(hiddenInputId);
 
-      selected.addEventListener("click", (e) => {
-        e.stopPropagation();
+      selected.addEventListener("click", () => {
         options.style.display = options.style.display === "block" ? "none" : "block";
       });
 
@@ -263,29 +263,29 @@
       };
 
       window.parent.postMessage(
-        JSON.stringify({
-          event_code: "ym-client-event",
-          data: JSON.stringify({
-            event: {
-              code: "userdetails",
-              data: data,
-            },
+          JSON.stringify({
+            event_code: "ym-client-event",
+            data: JSON.stringify({
+              event: {
+                code: "userdetails",
+                data: data,
+              },
+            }),
           }),
-        }),
-        "*"
-      );
-      console.log("event submitted");
-      console.log(JSON.stringify({
-        event: {
-          code: "userdetails",
-          data: data,
-        },
-      }))
+          "*"
+        );
+        console.log("event submitted");
+        console.log(JSON.stringify({
+          event: {
+            code: "userdetails",
+            data: data,
+          },
+        }))
 
-      formFields.forEach((field) => {
-        field.disabled = true;
-      });
-      submitButton.disabled = true;
+        formFields.forEach((field) => {
+          field.disabled = true;
+        });
+        submitButton.disabled = true;
     });
 
   </script>
