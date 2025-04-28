@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-container label.required::after {
+      content: " *";
+      color: red;
+    }
+
+    .form-container input,
+    .form-container select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-container button {
+      background-color: #4285f4;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-container button:hover {
+      background-color: #357ae8;
+    }
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+      font-family: sans-serif;
+      margin-bottom: 15px;
+    }
+
+    .dropdown-selected {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .dropdown-selected::after {
+      content: '▼';
+      float: right;
+      color: #000;
+      font-size: 10px;
+    }
+
+    .dropdown-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      background: #fff;
+      z-index: 10;
+      display: none;
+      max-height: 140px;
+      overflow-y: auto;
+      font-size: 15px;
+    }
+
+    .dropdown-options div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-options div:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <form id="form">
+      <label class="required">Submitter Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label class="required">Submitter Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label>Submitter Phone</label>
+      <input type="tel" id="phone" name="phone" />
+
+      <label class="required">Organization Name</label>
+      <input type="text" id="organization" name="organization" required />
+
+      <label class="required">Product</label>
+      <div class="dropdown" id="product-dropdown">
+        <div class="dropdown-selected" id="selected-product">Ensora Mental Health / Theranest</div>
+        <div class="dropdown-options" id="product-options">
+          <div data-value="TheraNest Professional">Ensora Mental Health / Theranest</div>
+          <div data-value="Ensora Rehab Therapy/Fusion">Ensora Rehab Therapy / Fusion</div>
+          <div data-value="Ensora Rehab Therapy/Fusion Enterprise">Ensora Rehab Therapy / Fusion Enterprise</div>
+          <div data-value="Ensora ABA Therapy/WebABA Pro & Group">Ensora ABA Therapy / WebABA Pro & Group</div>
+          <div data-value="Ensora Clearinghouse/Apex">Ensora Clearinghouse / Apex</div>
+          <div data-value="Ensora Data Collection/Catalyst">Ensora Data Collection / Catalyst</div>
+          <div data-value="Ensora Centralized Billing/Logik">Ensora Centralized Billing / Logik</div>
+          <div data-value="Ensora eRx/NewCrop">Ensora eRx / NewCrop</div>
+          <div data-value="ShareNote by Ensora Health">ShareNote by Ensora Health</div>
+          <div data-value="TenEleven by Ensora Health">TenEleven by Ensora Health</div>
+          <div data-value="EchoVantage by Ensora Health">EchoVantage by Ensora Health</div>
+          <div data-value="Procentive by Ensora Health">Procentive by Ensora Health</div>
+          <div data-value="MyClients Plus 2.0 by Ensora Health">MyClients Plus 2.0 by Ensora Health</div>
+          <div data-value="MyClients Plus 3.0 by Ensora Health">MyClients Plus 3.0 by Ensora Health</div>
+          <div data-value="CodeMetro by Ensora Health">CodeMetro by Ensora Health</div>
+          <div data-value="Thera-LINK">Thera-LINK</div>
+          <div data-value="KASA">KASA</div>
+          <div data-value="WebABA Legacy">WebABA Legacy</div>
+          <div data-value="AccuPoint Legacy">AccuPoint Legacy</div>
+          <div data-value="RevMan">RevMan</div>
+          <div data-value="ShareCare">ShareCare</div>
+          <div data-value="Clinician's Desktop">Clinician's Desktop</div>
+          <div data-value="Insyst">Insyst</div>
+        </div>
+        <input type="hidden" name="product" id="product-input" value="TheraNest Professional" />
+      </div>
+
+      <label class="required">Business Impact</label>
+      <div class="dropdown" id="business-dropdown">
+        <div class="dropdown-selected" id="selected-business">I have a question about my product</div>
+        <div class="dropdown-options" id="business-options">
+          <div data-value="I have a question about my product">I have a question about my product</div>
+          <div data-value="There is an item causing some minor annoyances (everyone can still work)">
+            There is an item causing some minor annoyances (everyone can still work)
+          </div>
+          <div data-value="Part of the system is not functioning (some people cannot work)">
+            Part of the system is not functioning (some people cannot work)
+          </div>
+          <div data-value="Entire system is down (no one can work)">
+            Entire system is down (no one can work)
+          </div>
+        </div>
+        <input type="hidden" name="business" id="business-input" value="I have a question about my product" />
+      </div>
+
+      <label class="required">Subject</label>
+      <input type="text" id="subject" name="subject" required />
+
+      <label class="required">Brief Description</label>
+      <input type="text" id="description" name="description" required />
+
+      <button type="submit">Start Chatting</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("form");
+    const formFields = form.querySelectorAll("input, select, textarea");
+    const submitButton = document.querySelector("button[type='submit']");
+
+    const url = new URL(window.location.href);
+    const userName = url.searchParams.get("name");
+    const userEmail = url.searchParams.get("email");
+    const userPhone = url.searchParams.get("phone");
+    const userProduct = url.searchParams.get("product-input");
+
+    const nameField = document.getElementById("name");
+    const emailField = document.getElementById("email");
+    const phoneField = document.getElementById("phone");
+    const productInput = document.getElementById("product-input");
+    const selectedProduct = document.getElementById("selected-product");
+
+    if (userName) {
+      nameField.value = userName;
+      nameField.disabled = true;
+    }
+    if (userEmail) {
+      emailField.value = userEmail;
+      emailField.disabled = true;
+    }
+    if (userPhone) {
+      phoneField.value = userPhone;
+      phoneField.disabled = true;
+    }
+    if (userProduct) {
+      productInput.value = userProduct;
+      selectedProduct.textContent = userProduct;
+    }
+
+    function setupDropdown(dropdownId, selectedId, optionsId, hiddenInputId) {
+      const dropdown = document.getElementById(dropdownId);
+      const selected = document.getElementById(selectedId);
+      const options = document.getElementById(optionsId);
+      const hiddenInput = document.getElementById(hiddenInputId);
+
+      selected.addEventListener("click", () => {
+        options.style.display = options.style.display === "block" ? "none" : "block";
+      });
+
+      options.addEventListener("click", (e) => {
+        if (e.target.dataset.value) {
+          selected.textContent = e.target.textContent;
+          hiddenInput.value = e.target.dataset.value;
+          options.style.display = "none";
+        }
+      });
+
+      window.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+          options.style.display = "none";
+        }
+      });
+    }
+
+    setupDropdown("product-dropdown", "selected-product", "product-options", "product-input");
+    setupDropdown("business-dropdown", "selected-business", "business-options", "business-input");
+
+    document.getElementById("form").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        organization: document.getElementById("organization").value,
+        product: document.getElementById("product-input").value,
+        business: document.getElementById("business-input").value,
+        subject: document.getElementById("subject").value,
+        description: document.getElementById("description").value,
+      };
+
+      window.parent.postMessage(
+          JSON.stringify({
+            event_code: "ym-client-event",
+            data: JSON.stringify({
+              event: {
+                code: "userdetails",
+                data: data,
+              },
+            }),
+          }),
+          "*"
+        );
+        console.log("event submitted");
+        console.log(JSON.stringify({
+          event: {
+            code: "userdetails",
+            data: data,
+          },
+        }))
+
+        formFields.forEach((field) => {
+          field.disabled = true;
+        });
+        submitButton.disabled = true;
+    });
+
+  </script>
+</body>
+
+</html>
