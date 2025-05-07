@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Form</title>
+    <title>Offline Form</title>
     <style>
         html,
         body {
@@ -31,6 +31,12 @@
             width: 300px;
             position: relative;
             z-index: 1;
+
+            /* Added for scrolling and layout */
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .form-container label {
@@ -62,6 +68,11 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+
+            /* Make button sticky */
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
         }
 
         .form-container button:hover {
