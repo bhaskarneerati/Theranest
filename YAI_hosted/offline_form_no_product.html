@@ -19,7 +19,7 @@
             justify-content: center;
             align-items: center;
             background-color: #f4f4f4;
-            padding: 10px 10px;
+            padding: 10px;
             box-sizing: border-box;
         }
 
@@ -37,6 +37,7 @@
             flex-direction: column;
             max-height: 90vh;
             overflow-y: auto;
+            padding-bottom: 60px;
         }
 
         .form-container label {
@@ -71,6 +72,7 @@
 
             /* Make button sticky */
             position: sticky;
+            left: 0;
             bottom: 0;
             z-index: 2;
         }
@@ -132,11 +134,21 @@
         .dropdown-options div:hover {
             background-color: #f0f0f0;
         }
+
+        .dropdown.disabled .dropdown-selected {
+            cursor: not-allowed;
+            background-color: #eee;
+            color: #777;
+        }
+
+        .dropdown.disabled .dropdown-selected::after {
+            color: #777;
+        }
     </style>
 </head>
 
 <body>
-    <div class="form-container">
+    <div class="form-container" id="form-container">
         <form id="form">
             <label class="required">Submitter name</label>
             <input type="text" id="name" name="name" required />
@@ -183,8 +195,12 @@
 
     <script>
         const form = document.getElementById("form");
+        const formContainer = document.getElementById("form-container");
+        const submitButton = document.querySelector(".form-container button[type='submit']");
         const formFields = form.querySelectorAll("input, select, textarea, .dropdown-selected");
-        const submitButton = document.querySelector("button[type='submit']");
+        const focusableElements = form.querySelectorAll("input:not([type='hidden']), select, textarea, .dropdown-selected");
+        const businessDropdown = document.getElementById("business-dropdown");
+        const dropdowns = [businessDropdown];
 
         const url = new URL(window.location.href);
         const userName = url.searchParams.get("name");
@@ -224,43 +240,47 @@
             selected.setAttribute('tabindex', '0');
 
             selected.addEventListener("click", () => {
-                options.style.display = options.style.display === "block" ? "none" : "block";
-                currentIndex = -1;
-                resetOptionHighlights(options);
-                if (options.style.display === "block" && options.children.length > 0) {
-                    options.children[0].focus();
-                    currentIndex = 0;
-                    highlightOption(options.children[currentIndex], options); // Pass the options element
+                if (!dropdown.classList.contains('disabled')) {
+                    options.style.display = options.style.display === "block" ? "none" : "block";
+                    currentIndex = -1;
+                    resetOptionHighlights(options);
+                    if (options.style.display === "block" && options.children.length > 0) {
+                        options.children[0].focus();
+                        currentIndex = 0;
+                        highlightOption(options.children[currentIndex], options);
+                    }
                 }
             });
 
             options.addEventListener("click", (e) => {
-                if (e.target.dataset.value) {
+                if (!dropdown.classList.contains('disabled') && e.target.dataset.value) {
                     setSelectedValue(selected, hiddenInput, options, e.target);
                 }
             });
 
             selected.addEventListener("keydown", (e) => {
-                if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    options.style.display = "block";
-                    if (options.children.length > 0) {
-                        options.children[0].focus();
-                        currentIndex = 0;
-                        highlightOption(options.children[currentIndex], options); // Pass the options element
+                if (!dropdown.classList.contains('disabled')) {
+                    if (e.key === "ArrowDown") {
+                        e.preventDefault();
+                        options.style.display = "block";
+                        if (options.children.length > 0) {
+                            options.children[0].focus();
+                            currentIndex = 0;
+                            highlightOption(options.children[currentIndex], options);
+                        }
                     }
                 }
             });
 
             options.addEventListener("keydown", (e) => {
-                if (options.style.display === "block") {
+                if (!dropdown.classList.contains('disabled') && options.style.display === "block") {
                     if (e.key === "ArrowDown") {
                         e.preventDefault();
                         if (currentIndex < options.children.length - 1) {
                             resetOptionHighlights(options);
                             currentIndex++;
                             const nextOption = options.children[currentIndex];
-                            highlightOption(nextOption, options); // Pass the options element
+                            highlightOption(nextOption, options);
                             nextOption.focus();
                         }
                     } else if (e.key === "ArrowUp") {
@@ -269,7 +289,7 @@
                             resetOptionHighlights(options);
                             currentIndex--;
                             const prevOption = options.children[currentIndex];
-                            highlightOption(prevOption, options); // Pass the options element
+                            highlightOption(prevOption, options);
                             prevOption.focus();
                         } else if (currentIndex === 0) {
                             resetOptionHighlights(options);
@@ -307,7 +327,6 @@
 
         function highlightOption(optionElement, optionsElement) {
             optionElement.classList.add('highlighted');
-            // Scroll the options container to bring the highlighted option into view
             optionsElement.scrollTop = optionElement.offsetTop - optionsElement.offsetTop;
         }
 
@@ -328,6 +347,36 @@
         document.head.appendChild(styleSheet);
 
         setupDropdown("business-dropdown", "selected-business", "business-options", "business-input");
+
+
+        function adjustFormPadding() {
+            if (submitButton) {
+                const buttonHeight = submitButton.offsetHeight;
+                formContainer.style.paddingBottom = `${buttonHeight + 10}px`;
+            }
+        }
+
+        adjustFormPadding();
+        window.addEventListener('resize', adjustFormPadding);
+
+        const dropdownOptions = document.querySelectorAll('.dropdown-options');
+        dropdownOptions.forEach(options => {
+            options.addEventListener('transitionend', adjustFormPadding);
+        });
+
+        focusableElements.forEach(element => {
+            element.addEventListener('focus', function () {
+                if (submitButton) {
+                    const buttonRect = submitButton.getBoundingClientRect();
+                    const elementRect = this.getBoundingClientRect();
+
+                    if (elementRect.bottom > buttonRect.top) {
+                        const scrollOffset = elementRect.bottom - buttonRect.top;
+                        formContainer.scrollTop += scrollOffset + 5;
+                    }
+                }
+            });
+        });
 
         document.getElementById("form").addEventListener("submit", function (event) {
             event.preventDefault();
@@ -367,6 +416,9 @@
                 field.disabled = true;
             });
             submitButton.disabled = true;
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.add('disabled');
+            });
         });
 
     </script>
