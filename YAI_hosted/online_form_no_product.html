@@ -79,6 +79,15 @@
       background-color: #0654B9;
     }
 
+    .form-container button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .form-container button:disabled:hover {
+      background-color: #ccc;
+    }
+
     .dropdown {
       position: relative;
       width: 100%;
@@ -170,7 +179,7 @@
 
   <script>
     const form = document.getElementById("form");
-    const formFields = form.querySelectorAll("input, select, textarea");
+    const formFields = form.querySelectorAll("input, select, textarea, .dropdown-selected");
     const submitButton = document.querySelector("button[type='submit']");
 
     const url = new URL(window.location.href);
@@ -200,25 +209,113 @@
       const selected = document.getElementById(selectedId);
       const options = document.getElementById(optionsId);
       const hiddenInput = document.getElementById(hiddenInputId);
+      let currentIndex = -1;
+
+      selected.setAttribute('tabindex', '0');
 
       selected.addEventListener("click", () => {
         options.style.display = options.style.display === "block" ? "none" : "block";
+        currentIndex = -1;
+        resetOptionHighlights(options);
+        if (options.style.display === "block" && options.children.length > 0) {
+          options.children[0].focus();
+          currentIndex = 0;
+          highlightOption(options.children[currentIndex], options); // Pass the options element
+        }
       });
 
       options.addEventListener("click", (e) => {
         if (e.target.dataset.value) {
-          selected.textContent = e.target.textContent;
-          hiddenInput.value = e.target.dataset.value;
-          options.style.display = "none";
+          setSelectedValue(selected, hiddenInput, options, e.target);
+        }
+      });
+
+      selected.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          options.style.display = "block";
+          if (options.children.length > 0) {
+            options.children[0].focus();
+            currentIndex = 0;
+            highlightOption(options.children[currentIndex], options); // Pass the options element
+          }
+        }
+      });
+
+      options.addEventListener("keydown", (e) => {
+        if (options.style.display === "block") {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (currentIndex < options.children.length - 1) {
+              resetOptionHighlights(options);
+              currentIndex++;
+              const nextOption = options.children[currentIndex];
+              highlightOption(nextOption, options); // Pass the options element
+              nextOption.focus();
+            }
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (currentIndex > 0) {
+              resetOptionHighlights(options);
+              currentIndex--;
+              const prevOption = options.children[currentIndex];
+              highlightOption(prevOption, options); // Pass the options element
+              prevOption.focus();
+            } else if (currentIndex === 0) {
+              resetOptionHighlights(options);
+              currentIndex = -1;
+              selected.focus();
+            }
+          } else if (e.key === "Enter" && currentIndex !== -1) {
+            e.preventDefault();
+            setSelectedValue(selected, hiddenInput, options, options.children[currentIndex]);
+          } else if (e.key === "Tab" || e.key === "Escape") {
+            options.style.display = "none";
+            resetOptionHighlights(options);
+            currentIndex = -1;
+            selected.focus();
+          }
         }
       });
 
       window.addEventListener("click", (e) => {
         if (!dropdown.contains(e.target)) {
           options.style.display = "none";
+          resetOptionHighlights(options);
+          currentIndex = -1;
         }
       });
     }
+
+    function setSelectedValue(selectedElement, hiddenInputElement, optionsElement, selectedOption) {
+      selectedElement.textContent = selectedOption.textContent;
+      hiddenInputElement.value = selectedOption.dataset.value;
+      optionsElement.style.display = "none";
+      resetOptionHighlights(optionsElement);
+      selectedElement.focus();
+    }
+
+    function highlightOption(optionElement, optionsElement) {
+      optionElement.classList.add('highlighted');
+      // Scroll the options container to bring the highlighted option into view
+      optionsElement.scrollTop = optionElement.offsetTop - optionsElement.offsetTop;
+    }
+
+    function resetOptionHighlights(optionsElement) {
+      Array.from(optionsElement.children).forEach(option => {
+        option.classList.remove('highlighted');
+      });
+    }
+
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = `
+    .dropdown-options div.highlighted {
+        background-color: #d3d3d3;
+        color: black;
+    }
+`;
+    document.head.appendChild(styleSheet);
 
     setupDropdown("business-dropdown", "selected-business", "business-options", "business-input");
 
